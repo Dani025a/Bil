@@ -90,8 +90,11 @@ public int turnbreakon() {
     }
     else
         System.out.println("Du kører ikke, men holder foden på bremsen");
-    if (currentspeed < 0)
-    currentspeed = 0;
+
+    if (currentspeed < 0) {
+        currentspeed = 0;
+        System.out.println("Du har nu nået den laveste hastighed");
+    }
 
     System.out.println("Du bremser nu, og din fart er nu: " + currentspeed + " Km/t");
 

@@ -51,11 +51,16 @@ public class CarTest {
         audi.timeForPedalDown = 4;
         audi.turnspeederup();
 
+        audi.pedal = 5;
+        audi.timeForPedalDown = 100;
+        audi.turnspeederup();
+
         audi.breakPedalDown = 5;
         audi.timeBreakPedalDown = 2;
         audi.turnbreakon();
-        audi.breakPedalDown = 1;
-        audi.timeBreakPedalDown = 2;
+
+        audi.breakPedalDown = 5;
+        audi.timeBreakPedalDown = 200;
         audi.turnbreakon();
 
         audi.pedal = 2;
