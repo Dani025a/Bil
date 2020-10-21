@@ -1,23 +1,59 @@
 public class car {
 
     private String password;
-    public boolean engineOn = false;
+    public boolean engineStatus;
+    public String engine;
     public int timeForPedalDown;
     public int pedal;
-    public int currentspeed = 0;
+    public int currentspeed;
     public int breakPedalDown;
     public int timeBreakPedalDown;
+    public String handBreakOnOrOff;
+    public boolean handBreakStatus;
     car(){
-        this.password = "Password1234";
+        this.password = "Audikey";
+        this.engineStatus = false;
+        this.handBreakStatus = true;
 
     }
     public void turnEngineOn(CarKey key) {
-        if (key.password.equals("Password1234")){
+        if (key.password.equals(password) && engineStatus == false && engine.equals("on")){
             System.out.println("Bilen er tændt");
-            engineOn = true;
+            engineStatus = true;
     }
-        else
-        System.out.println("Bilen er slukket");
+        else if (key.password.equals(password) && engineStatus == true && engine.equals("off")) {
+            System.out.printf("Bilen er nu slukket");
+            engineStatus = false;
+        }
+        else if (key.password.equals(password) && engineStatus == false && engine.equals("off")){
+            System.out.println("Bilen er allerede slukket");
+        }
+        else if (key.password.equals(password) && engineStatus == true && engine.equals("on")){
+            System.out.println("Bilen er allerede tændt");
+        }
+        else {
+            System.out.println("Forkert nøgle!");
+            for (int i = 0; i < 10; i++) {
+                System.out.println("BIP BIP BIP... Nogen prøver at stjæle bilen!");
+            }
+        }
+        }
+    public void turnHandBrake(){
+        if (handBreakOnOrOff.equals("on") && handBreakStatus == false){
+            System.out.println("Håndbremsen er nu slået til.");
+            handBreakStatus = true;
+        }
+        else if (handBreakOnOrOff.equals("off") && handBreakStatus == true){
+            System.out.println("Håndbremsen er nu slået fra.");
+            handBreakStatus = false;
+        }
+        else if (handBreakOnOrOff.equals("on") && handBreakStatus == true){
+            System.out.println("Håndbremsen er allerde slået til.");
+        }
+        else if (handBreakOnOrOff.equals("off") && handBreakStatus == false){
+            System.out.println("Håndbremsen er allerede slået fra.");
+        }
+
     }
         public int turnspeederup(){
 
@@ -44,7 +80,7 @@ public class car {
             System.out.println("Din hastighed er på " + currentspeed + " Km/t");
             return currentspeed;
         }
-public void turnbreakon() {
+public int turnbreakon() {
     if (currentspeed != 0) {
         for (int i = 0; i < timeBreakPedalDown; i++) {
             int breaking = breakPedalDown * 5;
@@ -59,6 +95,7 @@ public void turnbreakon() {
 
     System.out.println("Du bremser nu, og din fart er nu: " + currentspeed + " Km/t");
 
+    return currentspeed;
 }
 }
 
