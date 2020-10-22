@@ -1,4 +1,6 @@
 public class CarTest {
+    private static Object EngineStatus;
+
     public static void main(String[] args) {
         testSuit();
     }
@@ -7,64 +9,63 @@ public class CarTest {
         System.out.println("Testsuiten kører");
         testStartBilWithWrongKey();
         TestStartWithRightKey();
-        TestHandbrakeOn();
-        TestHandBrakeOff();
+        TestHandbrake();
         TestspeedUpAndBrake();
     }
     // Tester om bilens password virker og hvad der sker hvis man skriver den forkerte kode og rigtige kode
     private static void testStartBilWithWrongKey() {
-        car audi = new car();
+        Car audi = new Car();
         CarKey key = new CarKey("BMWkey");
-        audi.engine = "on";
-        audi.turnEngineOn(key);
+        EngineStatus engineStatus = new EngineStatus(false);
+        audi.engine = String.valueOf(CarState.on);
+        audi.turnEngineOn(key, engineStatus);
     }
     // Her tester vi om med den rigtige password
     private static void TestStartWithRightKey() {
-        car audi = new car();
+        Car audi = new Car();
         CarKey key = new CarKey("Audikey");
-        audi.engine = "on";
-        audi.turnEngineOn(key);
+        EngineStatus engineStatus = new EngineStatus(false);
+        audi.engine = String.valueOf(CarState.on);
+        audi.turnEngineOn(key, engineStatus);
+        audi.engine = String.valueOf(CarState.on);
+        audi.turnEngineOn(key, engineStatus);
     }
     //Vi tester om handbrake virker
-    private static void TestHandbrakeOn() {
-        car audi = new car();
-        audi.handBreakOnOrOff = "on";
-        audi.turnHandBrake();
+    private static void TestHandbrake() {
+        Car audi = new Car();
+        handBrakeStatus handbrake = new handBrakeStatus(false);
+        audi.turnHandBrakeOn(handbrake);
     }
     //Vi tester om man kan slå det fra igen
-    private static void TestHandBrakeOff() {
-        car audi = new car();
-        audi.handBreakOnOrOff = "off";
-        audi.turnHandBrake();
 
-    }
     //Her tester vi om du kan give gas, men også hvis vi sætter pedal som 0, da jeg har gjort at farten skal falde
     // Hvis den er på 0.
     //Vi tjekker også om bremserne virker og tester om den gemmer farten fra før.
     private static void TestspeedUpAndBrake() {
-        car audi = new car();
+        Car audi = new Car();
+        Currentspeed currentspeed = new Currentspeed(0);
         audi.pedal = 5;
         audi.timeForPedalDown = 10;
-        audi.turnspeederup();
+        audi.turnspeederup(currentspeed);
 
         audi.pedal = 0;
         audi.timeForPedalDown = 4;
-        audi.turnspeederup();
+        audi.turnspeederup(currentspeed);
 
         audi.pedal = 5;
         audi.timeForPedalDown = 100;
-        audi.turnspeederup();
+        audi.turnspeederup(currentspeed);
 
         audi.breakPedalDown = 5;
         audi.timeBreakPedalDown = 2;
-        audi.turnbreakon();
+        audi.turnBreakOn(currentspeed);
 
         audi.breakPedalDown = 5;
         audi.timeBreakPedalDown = 200;
-        audi.turnbreakon();
+        audi.turnBreakOn(currentspeed);
 
         audi.pedal = 2;
         audi.timeForPedalDown = 1;
-        audi.turnspeederup();
+        audi.turnspeederup(currentspeed);
     }
 }
