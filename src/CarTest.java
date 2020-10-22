@@ -1,5 +1,4 @@
 public class CarTest {
-    private static Object EngineStatus;
 
     public static void main(String[] args) {
         testSuit();
@@ -16,25 +15,25 @@ public class CarTest {
     private static void testStartBilWithWrongKey() {
         Car audi = new Car();
         CarKey key = new CarKey("BMWkey");
-        EngineStatus engineStatus = new EngineStatus(false);
-        audi.engine = String.valueOf(CarState.on);
-        audi.turnEngineOn(key, engineStatus);
+        audi.turnEngineOn(key);
     }
     // Her tester vi om med den rigtige password
     private static void TestStartWithRightKey() {
         Car audi = new Car();
         CarKey key = new CarKey("Audikey");
-        EngineStatus engineStatus = new EngineStatus(false);
-        audi.engine = String.valueOf(CarState.on);
-        audi.turnEngineOn(key, engineStatus);
-        audi.engine = String.valueOf(CarState.on);
-        audi.turnEngineOn(key, engineStatus);
+        audi.turnEngineOn(key);
+        audi.turnEngineOff();
+        audi.turnEngineOff();
+        audi.turnEngineOn(key);
+        audi.turnEngineOn(key);
     }
     //Vi tester om handbrake virker
     private static void TestHandbrake() {
         Car audi = new Car();
-        handBrakeStatus handbrake = new handBrakeStatus(false);
-        audi.turnHandBrakeOn(handbrake);
+        audi.turnHandBrakeOn();
+        audi.turnHandBrakeOn();
+        audi.turnHandBrakeOff();
+        audi.turnHandBrakeOff();
     }
     //Vi tester om man kan slå det fra igen
 
@@ -43,29 +42,31 @@ public class CarTest {
     //Vi tjekker også om bremserne virker og tester om den gemmer farten fra før.
     private static void TestspeedUpAndBrake() {
         Car audi = new Car();
-        Currentspeed currentspeed = new Currentspeed(0);
+        CarKey key = new CarKey("Audikey");
+        audi.turnEngineOn(key);
+        audi.turnHandBrakeOn();
         audi.pedal = 5;
         audi.timeForPedalDown = 10;
-        audi.turnspeederup(currentspeed);
+        audi.turnspeederup();
 
         audi.pedal = 0;
         audi.timeForPedalDown = 4;
-        audi.turnspeederup(currentspeed);
+        audi.turnspeederup();
 
         audi.pedal = 5;
         audi.timeForPedalDown = 100;
-        audi.turnspeederup(currentspeed);
+        audi.turnspeederup();
 
         audi.breakPedalDown = 5;
         audi.timeBreakPedalDown = 2;
-        audi.turnBreakOn(currentspeed);
+        audi.turnBreakOn();
 
         audi.breakPedalDown = 5;
         audi.timeBreakPedalDown = 200;
-        audi.turnBreakOn(currentspeed);
+        audi.turnBreakOn();
 
         audi.pedal = 2;
         audi.timeForPedalDown = 1;
-        audi.turnspeederup(currentspeed);
+        audi.turnspeederup();
     }
 }
